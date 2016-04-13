@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Semantic Web Tech</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet"href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="app.js"></script>
+
+  </head>
+  <body ng-controller="mainCtrl as main">
+
+    <div class="searchbar">
+      <i class="fa fa-search icon-left" ng-click="main.focusIn('searchInput')"></i>
+      <input id="searchInput" type="text" placeholder="Type a movie or actor..." ng-model="main.searchQuery" ng-change="main.search()"/>
+      <i class="fa fa-times icon-right" ng-if="main.searchQuery" ng-click="main.searchQuery = ''; main.results = [];"></i>
+    </div>
+
+    <div class="container padding">
+      <!-- <div class="card padding">{{main.hello}}</div> -->
+      <center ng-if="main.searching">
+        <br />
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom" style="color: rgba(0,0,0,0.54)"></i>
+        <br /><br />
+        <span class="animate-ellipsis">SEARCHING</span>
+      </center>
+       <div ng-repeat="result in main.results | limitTo: 20" class="card padding" ng-click="main.goToDocument(result)">
+        <div class="image-field">
+          <img ng-src="{{result.thumbnail.value || 'http://katerra-apps.com/static/images/imageNotAvailable.jpg'}}"/>
+        </div>
+        <div class="content-field">
+          <h1>{{result.label.value}}</h1>
+          {{result.description.value || 'No description...'}}
+        </div>
+       </div>
+
+    </div>
+
+  </body>
+</html>
