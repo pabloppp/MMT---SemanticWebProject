@@ -100,18 +100,18 @@ body{
 
 .animate-ellipsis:after{
   position: absolute;
-  content: "...";
-  animation: ellipsis-load 2s infinite;
+  content: " ";
+  animation: ellipsis-load 3s infinite linear;
 }
 
 @keyframes ellipsis-load {
     0% {
-      content: "";
+      content: " ";
     }
-    33% {
+    25% {
       content: ".";
     }
-    66% {
+    50% {
       content: "..";
     }
     100% {
