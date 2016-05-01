@@ -32,7 +32,7 @@
           <img ng-src="{{result.thumbnail.value || 'http://katerra-apps.com/static/images/imageNotAvailable.jpg'}}"/>
         </div>
         <div class="content-field">
-          <h1>{{result.label.value}}</h1>
+          <h1>{{result.label.value}} <a ng-href="{{result.s.value}}">dbpedia <i class="fa fa-link"></i></a></h1>
           {{result.description.value || 'No description...'}}
         </div>
        </div>

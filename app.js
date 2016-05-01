@@ -1,9 +1,10 @@
 
 var app = angular.module("app", [])
 
-.controller("mainCtrl", function($http, $timeout, dbpedia){
+.controller("mainCtrl", function($http, $timeout, dbpedia, $location, $scope){
 
   var main = this;
+
 
   main.hello = "Hello world!"
 
@@ -17,6 +18,7 @@ var app = angular.module("app", [])
     main.searching = true;
     if(main.searchTimeout) $timeout.cancel(main.searchTimeout);
     main.searchTimeout = $timeout(function(){
+      $location.search({ q : main.searchQuery});
       dbpedia.search(main.searchQuery)
       .then(function(result){
 
@@ -47,6 +49,18 @@ var app = angular.module("app", [])
     main.searchQuery = type+":"+id+" #"+label;
     main.search();
   }
+
+  if ($location.search().q){
+    main.searchQuery = $location.search().q;
+    main.search();
+  }
+
+  $scope.$on("$locationChangeSuccess", () => {
+    if(main.searchQuery != $location.search().q){
+      main.searchQuery = $location.search().q;
+      main.search();
+    }
+  })
 
 })
 
