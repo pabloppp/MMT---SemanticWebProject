@@ -19,7 +19,8 @@ var app = angular.module("app", [])
     main.searchTimeout = $timeout(function(){
       dbpedia.search(main.searchQuery)
       .then(function(result){
-        main.results = result.results.bindings;
+
+        main.results = result.data.results.bindings;
         console.log(main.results);
         main.searching = false;
       })
@@ -54,15 +55,8 @@ var app = angular.module("app", [])
     query = query.trim();
     query = encodeURI(query);
 
-    var deferred = $q.defer();
-    $http.get(searchPath(query))
-    .success(function(result){
-      deferred.resolve(result);
-    })
-    .error(function(err){
-      deferred.resolve(err);
-    })
-    return deferred.promise;
+    return $http.get(searchPath(query));
+
   }
 
   return {
